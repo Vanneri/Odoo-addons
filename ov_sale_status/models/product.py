@@ -14,21 +14,21 @@ class Product(models.Model):
     @api.multi
     def _compute_sale_total(self):
         domain = [
-            ('state', 'in', ['purchase', 'done']),
+            ('state', 'in', ['sale', 'done']),
             ('product_id', 'in', self.mapped('id'))
         ]
         order_lines = self.env['sale.order.line'].read_group(domain, ['product_id', 'product_uom_qty'],
                                                                  ['product_id'])
-        purchased_data = dict([(data['product_id'][0], data['product_uom_qty']) for data in order_lines])
+        sale_data = dict([(data['product_id'][0], data['product_uom_qty']) for data in order_lines])
         for product in self:
-            product.sales_count = float_round(purchased_data.get(product.id, 0),
+            product.sales_count = float_round(sale_data.get(product.id, 0),
                                               precision_rounding=product.uom_id.rounding)
 
     sales_count = fields.Integer(string='Sale', compute='_compute_sale_total')
 
     def action_view_sales(self):
         self.ensure_one()
-        action = self.env.ref('sale.action_orders').read()[0]
+        action = self.env.ref('ov_sale_status.action_sale_order_line_status').read()[0]
         action['domain'] = [('product_id', '=', self.id)]
         return action
 
@@ -47,6 +47,6 @@ class ProductTemplate(models.Model):
 
     def action_view_sales(self):
         self.ensure_one()
-        action = self.env.ref('sale.action_orders').read()[0]
+        action = self.env.ref('ov_sale_status.action_sale_order_line_status').read()[0]
         action['domain'] = [('product_id.product_tmpl_id', 'in', self.ids)]
         return action

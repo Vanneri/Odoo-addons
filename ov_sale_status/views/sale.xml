@@ -11,7 +11,7 @@
 
                 <xpath expr="//field[@name='order_line']/tree/field[@name='price_tax']" position="after">
                     <!-- Add your fields or attributes here -->
-                    <field name="delivery_status" invisible="0"/>
+                    <field name="delivery_status" invisible="1"/>
                 </xpath>
 
                 <xpath expr="/form/sheet/notebook/page/group/group[@name='sale_pay']/field[@name='invoice_status']"
@@ -29,9 +29,43 @@
             <field name="inherit_id" ref="sale.view_order_tree"/>
             <field name="arch" type="xml">
 
+                <xpath expr="//field[@name='invoice_status']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+
                 <xpath expr="//field[@name='invoice_status']" position="after">
                     <!-- Add new fields here -->
                     <field name="delivery_status"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="action_sale_order_line_status" model="ir.actions.act_window">
+            <field name="name">Sale Order Lines</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order.line</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="sale.view_order_line_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+        <record id="view_order_line_tree_status" model="ir.ui.view">
+            <field name="name">sale.order.line.status</field>
+            <field name="model">sale.order.line</field>
+            <field name="inherit_id" ref="sale.view_order_line_tree"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='qty_to_invoice']" position="after">
+                    <!-- Add new fields here -->
+                    <field name="delivery_status"/>
+                    <field name="invoice_status"/>
                 </xpath>
 
             </field>
