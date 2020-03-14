@@ -1,2 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_ov_purchase_status_ov_purchase_status,ov_purchase_status.ov_purchase_status,model_ov_purchase_status_ov_purchase_status,,1,0,0,0
