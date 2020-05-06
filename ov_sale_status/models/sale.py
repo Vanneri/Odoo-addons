@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, exceptions, fields, models, _
-from odoo.tools import email_re, email_split, email_escape_char, float_is_zero, float_compare, \
-    pycompat, date_utils
 
 from odoo.exceptions import AccessError, UserError, RedirectWarning, ValidationError, Warning
 
@@ -27,7 +25,7 @@ class SaleOrder(models.Model):
                 order.mapped('order_line').filtered(lambda r: r.product_id.type != 'service').mapped('product_uom_qty'))
             if order_quantity >= deliver_quantity > 0:
                 order.delivery_status = 'partially delivered'
-            elif order_quantity <= deliver_quantity:
+            elif order_quantity <= deliver_quantity > 0:
                 order.delivery_status = 'delivered'
             else:
                 order.delivery_status = 'not delivered'
@@ -52,7 +50,7 @@ class SaleOrderLine(models.Model):
         for line in self:
             if line.product_uom_qty >= line.qty_delivered > 0:
                 line.delivery_status = 'partially delivered'
-            elif line.product_uom_qty <= line.qty_delivered:
+            elif line.product_uom_qty <= line.qty_delivered > 0:
                 line.delivery_status = 'delivered'
             else:
                 line.delivery_status = 'not delivered'
