@@ -3,18 +3,19 @@
     <data>
 
         <!-- Inherit Form View to Modify it -->
-        <record id="view_order_form_sale_delivery" model="ir.ui.view">
-            <field name="name">sale.order.form.inherit.sale.delivery</field>
-            <field name="model">sale.order</field>
-            <field name="inherit_id" ref="sale.view_order_form"/>
+        <record id="view_purchase_order_form_delivery" model="ir.ui.view">
+            <field name="name">purchase.order.form.inherit.delivery</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
             <field name="arch" type="xml">
 
-                <xpath expr="//field[@name='order_line']/tree/field[@name='price_tax']" position="after">
+                <xpath expr="//field[@name='order_line']/tree/field[@name='taxes_id']" position="after">
                     <!-- Add your fields or attributes here -->
                     <field name="delivery_status" invisible="1"/>
+                    <field name="invoice_status" invisible="1"/>
                 </xpath>
 
-                <xpath expr="/form/sheet/notebook/page/group/group[@name='sale_pay']/field[@name='invoice_status']"
+                <xpath expr="/form/sheet/notebook/page/group/group/field[@name='invoice_status']"
                        position="after">
                     <field name="delivery_status"/>
                 </xpath>
@@ -23,10 +24,10 @@
         </record>
 
 
-        <record id="view_order_tree_status" model="ir.ui.view">
-            <field name="name">sale.order.tree.inherit.status</field>
-            <field name="model">sale.order</field>
-            <field name="inherit_id" ref="sale.view_order_tree"/>
+        <record id="purchase_order_tree_status" model="ir.ui.view">
+            <field name="name">purchase.order.tree.inherit.status</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_tree"/>
             <field name="arch" type="xml">
 
                 <xpath expr="//field[@name='invoice_status']" position="attributes">
@@ -41,13 +42,12 @@
             </field>
         </record>
 
-        <record id="action_sale_order_line_status" model="ir.actions.act_window">
-            <field name="name">Sale Order Lines</field>
+        <record id="action_purchase_order_line_status" model="ir.actions.act_window">
+            <field name="name">Purchase Order Lines</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="res_model">sale.order.line</field>
+            <field name="res_model">purchase.order.line</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[('state','in',('sale', 'done'))]</field>
-            <field name="view_id" ref="sale.view_order_line_tree"/>
+            <field name="view_id" ref="purchase.purchase_order_line_tree"/>
             <field name="help" type="html">
               <p class="oe_view_nocontent_create">
                 <!-- Add Text Here -->
@@ -57,13 +57,13 @@
             </field>
         </record>
 
-        <record id="view_order_line_tree_status" model="ir.ui.view">
-            <field name="name">sale.order.line.status</field>
-            <field name="model">sale.order.line</field>
-            <field name="inherit_id" ref="sale.view_order_line_tree"/>
+        <record id="view_purchase_order_line_tree_status" model="ir.ui.view">
+            <field name="name">purchase.order.line.status</field>
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id" ref="purchase.purchase_order_line_tree"/>
             <field name="arch" type="xml">
 
-                <xpath expr="//field[@name='qty_to_invoice']" position="after">
+                <xpath expr="//field[@name='date_planned']" position="after">
                     <!-- Add new fields here -->
                     <field name="delivery_status"/>
                     <field name="invoice_status"/>

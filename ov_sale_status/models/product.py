@@ -29,7 +29,7 @@ class Product(models.Model):
     def action_view_sales(self):
         self.ensure_one()
         action = self.env.ref('ov_sale_status.action_sale_order_line_status').read()[0]
-        action['domain'] = [('product_id', '=', self.id)]
+        action['domain'] = [('product_id', '=', self.id),('state','in',('sale', 'done'))]
         return action
 
 
@@ -48,5 +48,5 @@ class ProductTemplate(models.Model):
     def action_view_sales(self):
         self.ensure_one()
         action = self.env.ref('ov_sale_status.action_sale_order_line_status').read()[0]
-        action['domain'] = [('product_id.product_tmpl_id', 'in', self.ids)]
+        action['domain'] = [('product_id.product_tmpl_id', 'in', self.ids),('state','in',('sale', 'done'))]
         return action

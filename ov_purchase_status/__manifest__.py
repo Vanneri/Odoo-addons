@@ -1,39 +1,36 @@
 # -*- coding: utf-8 -*-
-#Vanneri
 {
-    'name': "SO Delivery Status",
+    'name': "ov_purchase_status",
 
     'summary': """
-        Invoice and delivery status in SO Line""",
+        Short (1 phrase/line) summary of the module's purpose, used as
+        subtitle on modules listing or apps.openerp.com""",
 
     'description': """
-        Easly we can track line wise invocie and delivery status
+        Long description of module's purpose
     """,
 
-    'author': "VaNnErI",
-    'license': "LGPL-3",
+    'author': "My Company",
+    'website': "http://www.yourcompany.com",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/12.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
-    'category': 'Sale',
-    'version': '12.0.2',
+    'category': 'Uncategorized',
+    'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['sale_stock'],
+    'depends': ['purchase'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/sale.xml',
-        # 'views/product.xml',
+        'views/product.xml',
+        'views/purchase.xml',
         'views/templates.xml',
     ],
-   'images': ['static/description/Banner.jpg'],
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
     ],
-    'installable': True,
-    'application': False
 }
