@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_move_form_inherit" model="ir.ui.view">
+            <field name="name">stock.move.form.inherit</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date']" position="after">
+                    <field name="value_price"/>
+                    <field name="value_svl"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_move_line_tree" model="ir.ui.view">
+            <field name="name">stock.move.line.tree</field>
+            <field name="model">stock.move.line</field>
+            <field name="arch" type="xml">
+                <tree decoration-muted="state == 'cancel'" decoration-danger="(state not in ('cancel','done'))"
+                      string="Move Lines" default_order="date">
+                    <field name="date"/>
+                    <field name="reference" string="Reference"
+                           invisible="context.get('no_reference', False)"/>
+                    <field name="product_id"/>
+                    <field name="lot_id" groups="stock.group_production_lot"/>
+                    <field name="qty_done" string="Quantity Done"/>
+                    <field name="product_uom_id" options="{'no_open': True, 'no_create': True}" string="Unit of Measure"
+                           groups="uom.group_uom"/>
+                    <field name="value_price"/>
+                    <field name="value_svl"/>
+                    <field name="state"/>
+                    <field name="company_id" groups="base.group_multi_company" force_save="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="stock_move_line_action_valuation" model="ir.actions.act_window">
+            <field name="name">Product Moves</field>
+            <field name="res_model">stock.move.line</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,kanban,pivot,form</field>
+            <field name="view_id" ref="stock_product_valuation.view_move_line_tree"/>
+            <field name="context">{'search_default_done': 1,
+                                   'create': 0}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_empty_folder">
+                    There's no product move yet
+                </p><p>
+                This menu gives you the full traceability of inventory operations on a specific product.
+                You can filter on the product to see all the past movements for the product.
+            </p>
+            </field>
+        </record>
+    </data>
+</odoo>

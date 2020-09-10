@@ -1,0 +1,53 @@
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="product_form_valuation" model="ir.ui.view">
+            <field name="name">product.product.valuation</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="stock.product_form_view_procurement_button"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[@name='button_box']/button[@name='action_open_quants']" position="before">
+                    <!-- Add your fields or attributes here -->
+                    <button class="oe_stat_button"
+                            name="action_view_stock_move_lines_valuation"
+                            icon="fa-bar-chart-o"
+                            type="object" attrs="{'invisible':[('type', '!=', 'product')]}">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="value_svl" widget="statinfo" nolabel="1" class="mr4"/>
+                            </span>
+                            <span class="o_stat_text">Value</span>
+                        </div>
+                    </button>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="product_template_form_valuation" model="ir.ui.view">
+            <field name="name">product.template.valuation</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="stock.product_template_form_view_procurement_button"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[@name='button_box']/button[@name='action_open_quants']" position="before">
+                    <!-- Add your fields or attributes here -->
+                    <button class="oe_stat_button"
+                            name="action_view_stock_move_lines_valuation"
+                            icon="fa-bar-chart-o"
+                            type="object" attrs="{'invisible':[('type', '!=', 'product')]}">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="value_svl" widget="statinfo" nolabel="1" class="mr4"/>
+                            </span>
+                            <span class="o_stat_text">Value</span>
+                        </div>
+                    </button>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>
