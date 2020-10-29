@@ -23,7 +23,7 @@ class SaleOrder(models.Model):
                 order.mapped('order_line').filtered(lambda r: r.product_id.type != 'service').mapped('qty_delivered'))
             order_quantity = sum(
                 order.mapped('order_line').filtered(lambda r: r.product_id.type != 'service').mapped('product_uom_qty'))
-            if order_quantity >= deliver_quantity > 0:
+            if order_quantity > deliver_quantity > 0:
                 order.delivery_status = 'partially delivered'
             elif order_quantity <= deliver_quantity > 0:
                 order.delivery_status = 'delivered'
@@ -48,7 +48,7 @@ class SaleOrderLine(models.Model):
         """ compute delivery status based on Qty delivered.
         """
         for line in self:
-            if line.product_uom_qty >= line.qty_delivered > 0:
+            if line.product_uom_qty > line.qty_delivered > 0:
                 line.delivery_status = 'partially delivered'
             elif line.product_uom_qty <= line.qty_delivered > 0:
                 line.delivery_status = 'delivered'
