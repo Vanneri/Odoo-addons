@@ -3,7 +3,7 @@
 
     "summary": """
         User With Multiple Operating Unit (OU) Can Easily Switch From Menu""",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1",
     "author": "VaNnErI",
     "category": "Hidden",
     "depends": ["web", "operating_unit"],
@@ -14,4 +14,6 @@
     "qweb": [
         "static/src/xml/switch_op.xml",
     ],
+    "installable": True,
+    "application": False
 }
