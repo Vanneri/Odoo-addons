@@ -5,7 +5,7 @@
         User With Multiple Operating Unit (OU) Can Easily Switch From Menu""",
     "version": "12.0.1",
     "author": "VaNnErI",
-    "category": "Hidden",
+    "category": "Generic",
     "depends": ["web", "operating_unit"],
     "license": "LGPL-3",
     "data": [
