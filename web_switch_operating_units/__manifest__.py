@@ -14,6 +14,7 @@
     "qweb": [
         "static/src/xml/switch_op.xml",
     ],
+    "images": ['static/description/Banner.png'],
     "installable": True,
     "application": False
 }
